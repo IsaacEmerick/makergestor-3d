@@ -1,2 +1,11 @@
-# makergestor-3d
-MakerGestor 3D é um sistema voltado para a otimização de encomendas de impressão 3D.
+# MakerGestor 3D
+
+## 📌 Descrição do Problema
+## 🚀 Solução Proposta
+## 🛠️ Tecnologias Utilizadas
+## ⚙️ Como Executar
+## 📂 Estrutura do Projeto
+## 🧩 Funcionalidades Implementadas
+## 📸 Demonstração (prints / GIFs / link para vídeo)
+## 👨‍💻 Integrantes do Grupo
+## 🔗 Links (Miro, repositório, vídeo)
