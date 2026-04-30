@@ -1,0 +1,10 @@
+# Ambiente virtual
+.envrc
+.venv
+
+# Cache do python
+__pycache__
+*.py[cod]
+
+# JSON local
+maker_dados.json

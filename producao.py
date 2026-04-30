@@ -62,6 +62,7 @@ def registrar_orcamento():
         "cliente": cliente,
         "peca": peca,
         "preco_final": preco_final,
+        "status": "Na Fila"
       })
       print(f"✅ Pedido #{dados.contador_pedidos} enviado para a fila de produção!")
       dados.contador_pedidos += 1
@@ -78,7 +79,7 @@ def visualizar_fila_producao():
     return
   
   for pedido in dados_sistema["fila_pedidos"]:
-    print(f"  [ID: {pedido['id']}] Peça: {pedido['peca']} | Cliente: {pedido['cliente']} | Valor: R${pedido['preco_final']:.2f}")
+    print(f"  [ID: {pedido['id']}] Cliente: {pedido['cliente']} | Peça: {pedido['peca']} | Status: {pedido.get('status', 'Na Fila')} | Valor: R${pedido['preco_final']:.2f}")
 
 def cancelar_pedido():
   print("\n--- Cancelar Pedido ---")
@@ -94,3 +95,44 @@ def cancelar_pedido():
     dados.salvar_dados()
   except ValueError:
     print("\n❌ Erro: Entrada inválida. Por favor, verifique se o tipo de dado está correto.")
+
+def atualizar_status():
+  print("\n 🗒️ --- Atualizar Status do Pedido ---")
+  if not dados_sistema["fila_pedidos"]:
+    print("⚠️  A fila está vazia.")
+    return
+
+  try:
+    visualizar_fila_producao()
+    id_pedido = int(input("\nDigite o ID do pedido que deseja atualizar o status: "))
+    
+    pedido_encontrado = None
+    for pedido in dados_sistema["fila_pedidos"]:
+      if pedido["id"] == id_pedido:
+        pedido_encontrado = pedido
+      
+      if not pedido_encontrado:
+        print(f"\n❌ Pedido #{id_pedido} não encontrado.")
+        return
+      
+      print(f"\nStatus atual: {pedido_encontrado.get('status', 'Na Fila')}")
+      print("1. Na Fila")
+      print("2. Imprimindo")
+      print("3. Finalizado")
+      novo_status_opcao = input("Escolha o novo status (1-3): ")
+
+      if novo_status_opcao == '1':
+          pedido_encontrado["status"] = "Na Fila"
+      elif novo_status_opcao == '2':
+          pedido_encontrado["status"] = "Imprimindo"
+      elif novo_status_opcao == '3':
+          pedido_encontrado["status"] = "Finalizado"
+      else:
+          print("❌ Opção inválida.")
+          return
+      
+      dados.salvar_dados()
+      print(f"✅ Status do pedido #{id_pedido} atualizado para {pedido_encontrado['status']}!")
+
+  except ValueError:
+    print("\n❌ Erro: O ID deve ser um número inteiro.")

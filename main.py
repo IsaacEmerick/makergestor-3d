@@ -10,8 +10,9 @@ def exibir_menu():
   print("2. Listar Filamentos")
   print("3. Alterar Tarifa de Energia (kWh)")
   print("4. Registrar Novo Orçamento")
-  print("5. Cancelar Pedido")
-  print("6. Visualizar Fila de Produção")
+  print("5. Visualizar Fila de Produção")
+  print("6. Atualizar Status do Pedido")
+  print("7. Cancelar Pedido")
   print("0. Sair")
   print("="*40)
   
@@ -31,9 +32,11 @@ def main():
     elif opcao == "4":
       producao.registrar_orcamento()
     elif opcao == "5":
-      producao.cancelar_pedido()
-    elif opcao == "6":
       producao.visualizar_fila_producao()
+    elif opcao == "6":
+      producao.atualizar_status()
+    elif opcao == "7":
+      producao.cancelar_pedido()
     elif opcao == "0":
       print("\n Encerrando o MakerGestor 3D. Até logo!...")
       break
