@@ -1,5 +1,6 @@
 import filamentos
 import producao
+import dados
 
 def exibir_menu():
   print("\n" + "="*40)
@@ -9,11 +10,14 @@ def exibir_menu():
   print("2. Listar Filamentos")
   print("3. Alterar Tarifa de Energia (kWh)")
   print("4. Registrar Novo Orçamento")
-  print("5. Visualizar Fila de Produção")
+  print("5. Cancelar Pedido")
+  print("6. Visualizar Fila de Produção")
   print("0. Sair")
   print("="*40)
   
 def main():
+  dados.carregar_dados()
+
   while True:
     exibir_menu()
     opcao = input("Escolha uma opção: ")
@@ -27,6 +31,8 @@ def main():
     elif opcao == "4":
       producao.registrar_orcamento()
     elif opcao == "5":
+      producao.cancelar_pedido()
+    elif opcao == "6":
       producao.visualizar_fila_producao()
     elif opcao == "0":
       print("\n Encerrando o MakerGestor 3D. Até logo!...")

@@ -8,6 +8,8 @@ def configurar_energia():
   try:
     valor = float(input("Digite o valor da Tarifa de Energia (R$/kWh): "))
     dados_sistema["tarifa_kwh"] = valor
+
+    dados.salvar_dados()
     print(f"✅ Tarifa de Energia alterada para R${valor:.2f}/kWh com sucesso!")
   except ValueError:
     print("\n❌ Erro: Por favor, digite um valor numérico válido.")
@@ -63,6 +65,7 @@ def registrar_orcamento():
       })
       print(f"✅ Pedido #{dados.contador_pedidos} enviado para a fila de produção!")
       dados.contador_pedidos += 1
+      dados.salvar_dados()
     else:
       print("❌ Pedido não enviado para a fila de produção.")
   except ValueError:
@@ -76,3 +79,18 @@ def visualizar_fila_producao():
   
   for pedido in dados_sistema["fila_pedidos"]:
     print(f"  [ID: {pedido['id']}] Peça: {pedido['peca']} | Cliente: {pedido['cliente']} | Valor: R${pedido['preco_final']:.2f}")
+
+def cancelar_pedido():
+  print("\n--- Cancelar Pedido ---")
+  visualizar_fila_producao()
+  try:
+    id_pedido = int(input("Digite o ID do pedido que deseja cancelar: "))
+    if id_pedido < 1 or id_pedido > len(dados_sistema["fila_pedidos"]):
+      print("\n❌ Erro: O ID do pedido escolhido não existe. Cancelamento cancelado.")
+      return
+    
+    pedido_cancelado = dados_sistema["fila_pedidos"].pop(id_pedido - 1)
+    print(f"✅ Pedido #{pedido_cancelado['id']} cancelado com sucesso!")
+    dados.salvar_dados()
+  except ValueError:
+    print("\n❌ Erro: Entrada inválida. Por favor, verifique se o tipo de dado está correto.")

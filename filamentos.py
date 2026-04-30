@@ -1,3 +1,4 @@
+import dados
 from dados import dados_sistema
 
 def cadastro_filamento():
@@ -13,6 +14,7 @@ def cadastro_filamento():
       "valor_grama": valor_grama
     })
 
+    dados.salvar_dados()
     print(f"✅ Filamento {nome} cadastrado! Custo: R${valor_grama:.2f}/g")
   except ValueError:
     print("\n❌ Erro: Por favor, digite um valor numérico válido.")
