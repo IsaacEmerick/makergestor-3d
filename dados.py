@@ -16,12 +16,15 @@ def carregar_dados():
   global dados_sistema, contador_pedidos
   if os.path.exists(FILE):
     with open(FILE, 'r', encoding='utf-8') as f:
-      dados_carregados = json.load(f)
-      dados_sistema.update(dados_carregados)
+      try:
+        dados_carregados = json.load(f)
+        dados_sistema.update(dados_carregados)
+      except json.JSONDecodeError:
+        print("⚠️  Aviso: Arquivo de dados vazio ou corrompido. Iniciando com dados limpos.")
 
-      if dados_sistema["fila_pedidos"]:
-        ultimo_id = max(pedido["id"] for pedido in dados_sistema["fila_pedidos"])
-        contador_pedidos = ultimo_id + 1
+  if dados_sistema["fila_pedidos"]:
+    ultimo_id = max(pedido["id"] for pedido in dados_sistema["fila_pedidos"])
+    contador_pedidos = ultimo_id + 1
 
 def salvar_dados():
   with open(FILE, 'w', encoding='utf-8') as f:
